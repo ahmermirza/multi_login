@@ -35,7 +35,7 @@ if (isset($_GET['logout'])) {
 	<div class="header w-25">
 		<h2>Admin - Home Page</h2>
 	</div>
-	<div class="content w-75">
+	<div class="content w-50">
 		<!-- notification message -->
 		<?php if (isset($_SESSION['success'])) : ?>
 			<div class="error success">
@@ -49,13 +49,11 @@ if (isset($_GET['logout'])) {
 		<?php endif ?>
 
 		<!-- logged in user information -->
-		<div class="profile_info">
+		<div class="profile_info d-flex justify-content-center">
 			<img src="../images/admin_profile.png">
-
 			<div>
 				<?php if (isset($_SESSION['user'])) : ?>
 					<strong class="text-uppercase"><?php echo $_SESSION['user']['username']; ?></strong>
-
 					<small>
 						<i style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>
 						<br>
@@ -65,7 +63,6 @@ if (isset($_GET['logout'])) {
 						&nbsp; <a href="ImageTable/index.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Image</a>
 						&nbsp; <a href="ReportTable/index.php" class="btn btn-primary"> <i class="fa fa-plus"></i> Report</a>
 					</small>
-
 				<?php endif ?>
 			</div>
 		</div>

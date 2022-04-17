@@ -21,11 +21,19 @@ function register(){
 
 	// receive all input values from the form. Call the e() function
     // defined below to escape form values
-	$username    =  e($_POST['username']);
-	$email       =  e($_POST['email']);
-	$password_1  =  e($_POST['password_1']);
-	$password_2  =  e($_POST['password_2']);
-
+	$username	= e($_POST['username']);
+	$email		= e($_POST['email']);
+	$password_1	= e($_POST['password_1']);
+	$password_2	= e($_POST['password_2']);
+	$first_name	= e($_POST['first_name']);
+	$last_name  = e($_POST['last_name']);
+	$address	= e($_POST['address']);
+	$post_nr	= e($_POST['post_nr']);
+	$country	= e($_POST['country']);
+	$phone		= e($_POST['phone']);
+	$work_title	= e($_POST['work_title']);
+	$profile_pic = e($_POST['profile_pic']);
+	
 	// form validation: ensure that the form is correctly filled
 	if (empty($username)) { 
 		array_push($errors, "Username is required"); 
@@ -46,14 +54,15 @@ function register(){
 
 		if (isset($_POST['user_type'])) {
 			$user_type = e($_POST['user_type']);
-			$query = "INSERT INTO users (username, email, user_type, password) 
-					  VALUES('$username', '$email', '$user_type', '$password')";
+			$query = "INSERT INTO users (username, email, user_type, password, first_name, last_name, address, post_nr, country, phone, work_title, profile_pic) 
+					  VALUES('$username', '$email', '$user_type', '$password', '$first_name', '$last_name', '$address', '$post_nr', '$country', '$phone', '$work_title', '$profile_pic')";
 			mysqli_query($db, $query);
 			$_SESSION['success']  = "New user successfully created!!";
 			header('location: home.php');
 		}else{
-			$query = "INSERT INTO users (username, email, user_type, password) 
-					  VALUES('$username', '$email', 'user', '$password')";
+			$user_type = e($_POST['user_type']);
+			$query = "INSERT INTO users (username, email, user_type, password, first_name, last_name, address, post_nr, country, phone, work_title, profile_pic) 
+					  VALUES('$username', '$email', '$user_type', '$password', '$first_name', '$last_name', '$address', '$post_nr', '$country', '$phone', '$work_title', '$profile_pic')";
 			mysqli_query($db, $query);
 
 			// get id of the created user

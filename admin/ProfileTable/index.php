@@ -233,7 +233,7 @@ if (isset($_GET['delid'])) {
                                 <!--Fetch the Records -->
                                 <tr>
                                     <td><?php echo $cnt; ?></td>
-                                    <!-- <td><img src="profilepics/<?php echo $row['ProfilePic']; ?>" width="80" height="80"></td> -->
+                                    <td><img src="<?php echo str_replace('\\', '/', dirname(__FILE__, 3).'/image/'.$row['profile_pic']); ?>" width="80" height="80"></td>
                                     <td><?php echo $row['username']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['user_type']; ?></td>
