@@ -7,7 +7,7 @@ if (isset($_GET['delid'])) {
     $profilepic = $_GET['ppic'];
     $ppicpath = "profilepics" . "/" . $profilepic;
     $sql = mysqli_query($con, "delete from users where ID=$rid");
-    unlink($ppicpath);
+    // unlink($ppicpath);
     echo "<script>alert('Data deleted');</script>";
     echo "<script>window.location.href = 'index.php'</script>";
 }
@@ -22,7 +22,8 @@ if (isset($_GET['delid'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -195,7 +196,7 @@ if (isset($_GET['delid'])) {
 </head>
 
 <body>
-    <div class="container-xl">
+    <div class="container-xl px-0">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -204,7 +205,7 @@ if (isset($_GET['delid'])) {
                             <h2>Profile <b>Management</b></h2>
                         </div>
                         <div class="col-sm-7" align="right">
-                            <a href="insert.php" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
+                            <a href="insert.php" class="btn btn-secondary"><i class="fa-solid fa-circle-plus pr-2"></i>Add New User</a>
 
                         </div>
                     </div>
@@ -212,12 +213,15 @@ if (isset($_GET['delid'])) {
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <!-- <th>#</th> -->
                             <th>Profile Pic</th>
-                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
                             <th>Email</th>
+                            <th>Address</th>
                             <th>Mobile Number</th>
-                            <th>Created Date</th>
+                            <th>Salary</th>
+                            <th>User Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -232,17 +236,20 @@ if (isset($_GET['delid'])) {
                         ?>
                                 <!--Fetch the Records -->
                                 <tr>
-                                    <td><?php echo $cnt; ?></td>
-                                    <td><img src="<?php echo str_replace('\\', '/', dirname(__FILE__, 3).'/image/'.$row['profile_pic']); ?>" width="80" height="80"></td>
-                                    <td><?php echo $row['username']; ?></td>
-                                    <td><?php echo $row['email']; ?></td>
-                                    <td><?php echo $row['user_type']; ?></td>
-                                    <td> <?php echo $row['password']; ?></td>
-                                    <td>
+                                    <!-- <td><?php echo $cnt; ?></td> -->
+                                    <td class="align-middle py-2"><img src="<?php echo '../../image/'.$row['profile_pic']; ?>" width="80" height="80"></td>
+                                    <td class="align-middle py-2"><?php echo $row['username']; ?></td>
+                                    <td class="align-middle py-2"><?php echo $row['first_name']." ".$row['last_name']; ?></td>
+                                    <td class="align-middle py-2"><?php echo $row['email']; ?></td>
+                                    <td class="align-middle py-2"> <?php echo $row['address'].', '.$row['post_nr'].', '.$row['country']; ?></td>
+                                    <td class="align-middle py-2"><?php echo $row['phone']; ?></td>
+                                    <td class="align-middle py-2"><?php echo $row['salary']; ?></td>
+                                    <td class="align-middle py-2"><?php echo $row['user_type']; ?></td>
+                                    <td class="align-middle py-2">
                                         <a href="read.php?viewid=<?php echo htmlentities($row['id']); ?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                                         <a href="edit.php?editid=<?php echo htmlentities($row['id']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                         <a href="index.php?delid=<?php echo ($row['id']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a>
-                                        <!-- <a href="index.php?delid=<?php echo ($row['id']); ?>&&ppic=<?php echo $row['ProfilePic']; ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a> -->
+                                        <!-- <a href="index.php?delid=<?php echo ($row['id']); ?>&&ppic=<?php echo $row['profile_pic']; ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a> -->
                                     </td>
                                 </tr>
                             <?php

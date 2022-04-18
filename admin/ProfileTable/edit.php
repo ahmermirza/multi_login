@@ -12,7 +12,7 @@ if(isset($_POST['submit']))
     $add=$_POST['address'];
 
     //Query for data updation
-     $query=mysqli_query($con, "update  tblusers set FirstName='$fname',LastName='$lname', MobileNumber='$contno', Email='$email', Address='$add' where ID='$eid'");
+     $query=mysqli_query($con, "update users set FirstName='$fname',LastName='$lname', MobileNumber='$contno', Email='$email', Address='$add' where ID='$eid'");
      
     if ($query) {
     echo "<script>alert('You have successfully update the data');</script>";
@@ -132,32 +132,32 @@ body {
     <form  method="POST">
  <?php
 $eid=$_GET['editid'];
-$ret=mysqli_query($con,"select * from tblusers where ID='$eid'");
+$ret=mysqli_query($con,"select * from users where ID='$eid'");
 while ($row=mysqli_fetch_array($ret)) {
 ?>
 		<h2>Update </h2>
 		<p class="hint-text">Update your info.</p>
 
 	<div class="form-group">
-<img src="profilepics/<?php  echo $row['ProfilePic'];?>" width="120" height="120">
-<a href="change-image.php?userid=<?php echo $row['ID'];?>">Change Image</a>
+<img src="<?php echo '../../image/'.$row['profile_pic']; ?>" width="120" height="120">
+<a href="change-image.php?userid=<?php echo $row['id'];?>">Change Image</a>
 		</div>
 
         <div class="form-group">
 			<div class="row">
-				<div class="col"><input type="text" class="form-control" name="fname" value="<?php  echo $row['FirstName'];?>" required="true"></div>
-				<div class="col"><input type="text" class="form-control" name="lname" value="<?php  echo $row['LastName'];?>" required="true"></div>
+				<div class="col"><input type="text" class="form-control" name="fname" value="<?php echo $row['first_name'];?>" required="true"></div>
+				<div class="col"><input type="text" class="form-control" name="lname" value="<?php echo $row['last_name'];?>" required="true"></div>
 			</div>        	
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="contactno" value="<?php  echo $row['MobileNumber'];?>" required="true" maxlength="10" pattern="[0-9]+">
+            <input type="text" class="form-control" name="contactno" value="<?php echo $row['phone'];?>" required="true" maxlength="10" pattern="[0-9]+">
         </div>
         <div class="form-group">
-        	<input type="email" class="form-control" name="email" value="<?php  echo $row['Email'];?>" required="true">
+        	<input type="email" class="form-control" name="email" value="<?php echo $row['email'];?>" required="true">
         </div>
 		
 		<div class="form-group">
-            <textarea class="form-control" name="address" required="true"><?php  echo $row['Address'];?></textarea>
+            <input type="text" class="form-control" name="address" value="<?php echo $row['address'];?>" required="true">
         </div>   
 
 <?php 
