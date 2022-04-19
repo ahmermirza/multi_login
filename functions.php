@@ -26,7 +26,7 @@ if (isset($_POST['register_btn'])) {
 // REGISTER USER
 function register(){
 	// call these variables with the global keyword to make them available in function
-	global $db, $errors, $username, $email, $user_type, $first_name, $last_name, $address, $post_nr, $country, $phone, $salary, $work_title, $profile_pic;
+	global $db, $errors, $username, $email, $user_type, $first_name, $last_name, $address, $post_nr, $country, $phone, $salary, $work_title, $profile_pic, $ppic;
 
 	// receive all input values from the form. Call the e() function
     // defined below to escape form values
@@ -43,7 +43,35 @@ function register(){
 	$phone		= e($_POST['phone']);
 	$salary		= e($_POST['salary']);
 	$work_title	= e($_POST['work_title']);
-	$profile_pic = e($_POST['profile_pic']);
+	// $profile_pic = e($_POST['profile_pic']);
+
+	$ppic = $_FILES["profile_pic"]["name"];
+	// get the image extension
+	$extension = pathinfo($ppic, PATHINFO_EXTENSION);
+	// allowed extensions
+	$allowed_extensions = array("jpg","jpeg","png","gif", "PNG");
+	// Validation for allowed extensions .in_array() function searches an array for a specific value.
+	if(!in_array($extension,$allowed_extensions))
+	{
+	echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
+	}
+	else
+	{
+	//rename the image file
+	$imgnewfile=md5($ppic).time().'.'.$extension;
+	// Code for move image into directory
+
+	$uploads_dir = 'ProfileTable/profilepics/';
+	$name = $_FILES['profile_pic']['name'];
+	if (is_uploaded_file($_FILES['profile_pic']['tmp_name']))
+	{       
+		//in case you want to move  the file in uploads directory
+		// move_uploaded_file($_FILES['profile_pic']['tmp_name'], $uploads_dir.$name);
+		move_uploaded_file($_FILES['profile_pic']['tmp_name'], $uploads_dir.$imgnewfile);
+		echo 'Moved file to destination directory!';
+	}
+
+	move_uploaded_file($_FILES["profile_pic"]["tmp_name"],"ProfileTable/profilepics/".$imgnewfile);
 	
 	// form validation: ensure that the form is correctly filled
 	if (empty($username)) { 
@@ -93,14 +121,14 @@ function register(){
 		if (isset($_POST['user_type'])) {
 			$user_type = e($_POST['user_type']);
 			$query = "INSERT INTO users (username, email, user_type, password, first_name, last_name, address, post_nr, country, phone, salary, work_title, profile_pic) 
-					  VALUES('$username', '$email', '$user_type', '$password', '$first_name', '$last_name', '$address', '$post_nr', '$country', '$phone', '$salary', '$work_title', '$profile_pic')";
+					  VALUES('$username', '$email', '$user_type', '$password', '$first_name', '$last_name', '$address', '$post_nr', '$country', '$phone', '$salary', '$work_title', '$imgnewfile')";
 			mysqli_query($db, $query);
 			$_SESSION['success']  = "New user successfully created!!";
 			header('location: home.php');
 		}else{
 			$user_type = e($_POST['user_type']);
 			$query = "INSERT INTO users (username, email, user_type, password, first_name, last_name, address, post_nr, country, phone, salary, work_title, profile_pic) 
-					  VALUES('$username', '$email', '$user_type', '$password', '$first_name', '$last_name', '$address', '$post_nr', '$country', '$phone', '$salary', '$work_title', '$profile_pic')";
+					  VALUES('$username', '$email', '$user_type', '$password', '$first_name', '$last_name', '$address', '$post_nr', '$country', '$phone', '$salary', '$work_title', '$imgnewfile')";
 			mysqli_query($db, $query);
 
 			// get id of the created user
@@ -111,6 +139,7 @@ function register(){
 			header('location: index.php');				
 		}
 	}
+}
 }
 
 // return user array from their id

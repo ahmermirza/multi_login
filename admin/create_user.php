@@ -21,7 +21,7 @@
 			<h2>Admin - create user</h2>
 		</div>
 		
-		<form method="post" action="create_user.php">
+		<form method="post" action="create_user.php" enctype="multipart/form-data">
 			<?php echo display_error(); ?>
 			<div class="input-group">
 				<label>Username</label>
@@ -34,6 +34,7 @@
 			<div class="input-group">
 				<label>User Type</label>
 				<select name="user_type" id="user_type" style="width: 93%;">
+					<option disabled selected value=""></option>
 					<option value="user">User</option>
 					<option value="admin">Admin</option>
 				</select>
@@ -80,7 +81,7 @@
 			</div>
 			<div class="input-group">
 				<label>Profile Pic</label>
-				<input type="file" name="profile_pic" style="font-size: 11px;" class="pb-4">
+				<input type="file" name="profile_pic" style="font-size: 12px;" class="pb-4">
 			</div>
 			<div class="input-group">
 				<button type="submit" class="btn" name="register_btn"><i class="fa fa-plus"></i> Create User</button>

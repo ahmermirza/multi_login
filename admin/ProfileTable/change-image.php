@@ -4,7 +4,7 @@ include('dbconnection.php');
 if (isset($_POST['submit'])) {
 	$uid = $_GET['userid'];
 	//getting the post values
-	$ppic = $_FILES["profilepic"]["name"];
+	$ppic = $_FILES["profile_pic"]["name"];
 	$oldppic = $_POST['oldpic'];
 	$oldprofilepic = "profilepics" . "/" . $oldppic;
 	// get the image extension
@@ -18,9 +18,9 @@ if (isset($_POST['submit'])) {
 		//rename the image file
 		$imgnewfile = md5($imgfile) . time() . $extension;
 		// Code for move image into directory
-		move_uploaded_file($_FILES["profilepic"]["tmp_name"], "profilepics/" . $imgnewfile);
+		move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "profilepics/" . $imgnewfile);
 		// Query for data insertion
-		$query = mysqli_query($con, "update tblusers set ProfilePic='$imgnewfile' where id='$uid' ");
+		$query = mysqli_query($con, "update users set profile_pic='$imgnewfile' where id='$uid' ");
 		if ($query) {
 			//Old pic
 			unlink($oldprofilepic);
@@ -163,18 +163,18 @@ if (isset($_POST['submit'])) {
 		<form method="POST" enctype="multipart/form-data">
 			<?php
 			$eid = $_GET['userid'];
-			$ret = mysqli_query($con, "select * from tblusers where ID='$eid'");
+			$ret = mysqli_query($con, "select * from users where ID='$eid'");
 			while ($row = mysqli_fetch_array($ret)) {
 			?>
 				<h2>Update </h2>
 				<p class="hint-text">Update your profile pic.</p>
-				<input type="hidden" name="oldpic" value="<?php echo $row['ProfilePic']; ?>">
+				<input type="hidden" name="oldpic" value="<?php echo $row['profile_pic']; ?>">
 				<div class="form-group">
-					<img src="profilepics/<?php echo $row['ProfilePic']; ?>" width="120" height="120">
+					<img src="profilepics/<?php echo $row['profile_pic']; ?>" width="120" height="120">
 				</div>
 
 				<div class="form-group">
-					<input type="file" class="form-control" name="profilepic" required="true">
+					<input type="file" class="form-control" name="profile_pic" required="true">
 					<span style="color:red; font-size:12px;">Only jpg / jpeg/ png /gif format allowed.</span>
 				</div>
 

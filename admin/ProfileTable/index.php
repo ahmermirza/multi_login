@@ -7,7 +7,7 @@ if (isset($_GET['delid'])) {
     $profilepic = $_GET['ppic'];
     $ppicpath = "profilepics" . "/" . $profilepic;
     $sql = mysqli_query($con, "delete from users where ID=$rid");
-    // unlink($ppicpath);
+    unlink($ppicpath);
     echo "<script>alert('Data deleted');</script>";
     echo "<script>window.location.href = 'index.php'</script>";
 }
@@ -237,7 +237,7 @@ if (isset($_GET['delid'])) {
                                 <!--Fetch the Records -->
                                 <tr>
                                     <!-- <td><?php echo $cnt; ?></td> -->
-                                    <td class="align-middle py-2"><img src="<?php echo '../../image/'.$row['profile_pic']; ?>" width="80" height="80"></td>
+                                    <td class="align-middle py-2"><img src="<?php echo 'profilepics/'.$row['profile_pic']; ?>" width="80" height="80"></td>
                                     <td class="align-middle py-2"><?php echo $row['username']; ?></td>
                                     <td class="align-middle py-2"><?php echo $row['first_name']." ".$row['last_name']; ?></td>
                                     <td class="align-middle py-2"><?php echo $row['email']; ?></td>
@@ -248,8 +248,8 @@ if (isset($_GET['delid'])) {
                                     <td class="align-middle py-2">
                                         <a href="read.php?viewid=<?php echo htmlentities($row['id']); ?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                                         <a href="edit.php?editid=<?php echo htmlentities($row['id']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                        <a href="index.php?delid=<?php echo ($row['id']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a>
-                                        <!-- <a href="index.php?delid=<?php echo ($row['id']); ?>&&ppic=<?php echo $row['profile_pic']; ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a> -->
+                                        <!-- <a href="index.php?delid=<?php echo ($row['id']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a> -->
+                                        <a href="index.php?delid=<?php echo ($row['id']); ?>&&ppic=<?php echo $row['profile_pic']; ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a>
                                     </td>
                                 </tr>
                             <?php

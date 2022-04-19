@@ -50,7 +50,7 @@ if (isset($_GET['logout'])) {
 
 		<!-- logged in user information -->
 		<div class="profile_info d-flex justify-content-center">
-			<img src="<?php echo '../admin/images/'.$_SESSION['user']['profile_pic']; ?>">
+			<img src="<?php echo '../admin/ProfileTable/profilepics/'.$_SESSION['user']['profile_pic']; ?>">
 			<div>
 				<?php if (isset($_SESSION['user'])) : ?>
 					<strong class="text-uppercase"><?php echo $_SESSION['user']['username']; ?></strong>

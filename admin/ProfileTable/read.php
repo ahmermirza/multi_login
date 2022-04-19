@@ -207,7 +207,7 @@ include('dbconnection.php');
                     <tbody>
                         <tr>
                             <th width="200">Profile Pic</th>
-                            <td><img src="<?php echo '../../image/'.$row['profile_pic']; ?>" width="80" height="80"></td>
+                            <td><img src="<?php echo 'profilepics/'.$row['profile_pic']; ?>" width="80" height="80"></td>
                             <th width="200">Creation Date</th>
                             <td><?php echo $row['CreationDate']; ?></td>
                         </tr>
